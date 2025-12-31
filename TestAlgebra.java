@@ -82,7 +82,7 @@ public class TestAlgebra {
         totalTests += 6;
         
         boolean test1 = Algebra.times(3, 4) == 12;
-        System.out.println("Test 1 (basic multiplication): " + (test1 ? "PASS" : "FAIL"));
+        System.out.println("Test 1 (basic multiplication): " + (test1 ? "PASS" : "FAIL" ));
         
         boolean test2 = Algebra.times(0, 5) == 0;
         System.out.println("Test 2 (multiply by zero): " + (test2 ? "PASS" : "FAIL"));

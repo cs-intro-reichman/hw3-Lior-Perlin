@@ -27,9 +27,17 @@ public class LoanCalc {
 
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
-	private static double endBalance(double loan, double rate, int n, double payment) {	
-		// Replace the following statement with your code
-		return 0;
+	private static double endBalance(double loan, double rate, int n, double payment) {
+		while(loan > 0 && n > 0)
+		{
+			n--;
+			loan -= payment;
+			payment *= rate;
+		}
+		if(n > 0) {
+			loan -= (payment * n);
+		}
+		return loan;
 	}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
@@ -38,8 +46,18 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
-		// Replace the following statement with your code
-		return 0;
+		double payment = loan / n;
+		double curSum = endBalance(loan, rate, n, payment);
+		int bruteremover = 1000000;
+		while((curSum > epsilon || curSum < (-1)*epsilon)) {
+			if (bruteremover <= 0) {
+				break;
+			}
+			bruteremover--;
+			payment += epsilon;
+			curSum = endBalance(loan, rate, n, payment);
+		}
+		return payment;
     }
     
     // Uses bisection search to compute an approximation of the periodical payment 
@@ -48,7 +66,19 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-        // Replace the following statement with your code
-		return 0;
+        double L = loan / n;
+		double H = loan;
+		double g = (L + H / 2);
+		int bruteremover = 1000000;
+		while( H - L > epsilon && bruteremover > 0) {
+			if(endBalance(loan, rate, n, g) > 0) {
+				L = g;
+			}
+			else {
+				H = g;
+			}
+			g = (L + H / 2);
+		}
+		return g;
     }
 }
